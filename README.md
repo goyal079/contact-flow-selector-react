@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
 
-## Project info
+# CRM Contact Selector Dropdown
 
-**URL**: https://lovable.dev/projects/b1df6f06-8828-4f12-bc6d-84f28c10ac2e
+A reusable React component that allows users to search and select contacts from a list in a CRM application.
 
-## How can I edit this code?
+## Component Design
 
-There are several ways of editing your application.
+The `ContactSelectorDropdown` component is built with the following design principles:
 
-**Use Lovable**
+- **Clean UI**: Professional appearance with subtle animations and visual feedback
+- **Intuitive UX**: Clear input field, dropdown items with name and email, and responsive interactions
+- **Accessibility**: ARIA roles and attributes for screen reader compatibility
+- **Modularity**: Reusable component with clear props interface
+- **Performance**: Optimized for handling large contact lists (100+ contacts) with debounced search
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b1df6f06-8828-4f12-bc6d-84f28c10ac2e) and start prompting.
+## Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- 🔍 Search filtering by name or email (case-insensitive)
+- ⌨️ Keyboard navigation (arrow keys, Enter, Escape)
+- 🔆 Highlighted search matches in results
+- 🧹 Clear selection button
+- ⏱️ Debounced search input
+- ♿ Accessibility support with ARIA attributes
+- 🚀 Performance optimized for large contact lists
 
-**Use your preferred IDE**
+## State Handling
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+The component manages several pieces of state:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `selectedContact`: The currently selected contact
+- `searchTerm`: The current search input value
+- `debouncedSearchTerm`: A debounced version of the search term to prevent excessive filtering
+- `isOpen`: Controls the visibility of the dropdown
+- `highlightedIndex`: Tracks the currently highlighted option for keyboard navigation
 
-Follow these steps:
+## Keyboard Support
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+The component implements comprehensive keyboard navigation:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Arrow Down**: Open dropdown if closed, move to next option if open
+- **Arrow Up**: Move to previous option
+- **Enter**: Select highlighted option, or open dropdown if closed
+- **Escape**: Close dropdown
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Props Interface
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```tsx
+interface ContactSelectorDropdownProps {
+  contacts: Contact[]; // Array of contact objects
+  onSelect: (contact: Contact | null) => void; // Callback when a contact is selected
+  placeholder?: string; // Optional input placeholder
+  defaultSelected?: Contact | null; // Pre-selected contact (if any)
+  className?: string; // Optional additional classes
+}
+
+interface Contact {
+  id: string;
+  name: string;
+  email: string;
+}
 ```
 
-**Edit a file directly in GitHub**
+## Future Improvements
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b1df6f06-8828-4f12-bc6d-84f28c10ac2e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Virtual scrolling for extremely large datasets (1000+ contacts)
+- Multi-select functionality
+- Grouping and categorization of contacts
+- Contact creation from search input
+- Customizable styling and theming options
+- Saved/recent searches functionality
+- Integration with server-side search for very large datasets
